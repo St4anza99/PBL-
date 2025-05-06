@@ -1,7 +1,7 @@
 // Posture Checker
 // Introduction to IoT - PBL
-// Author:
-// Date:
+// Authors:Kaeo Kloss and Constanza Avila Ramirez
+// Date:05/06/25
 
 /* ───── Library ───── */
 #include <NewPing.h> // Handles HC-SR04 timing and distance math

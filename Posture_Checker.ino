@@ -68,7 +68,7 @@ if (distance == 0 || distance < minThreshold || distance > maxThreshold) {
     alertSilenced = false;             // alerts enabled for next incorrect posture event
   }
 
-  delay(200);  // loop delay
+  delay(100);  // loop delay
 }
 
 /* ─────────────────────────────────── */

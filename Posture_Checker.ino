@@ -14,8 +14,10 @@ const int buzzerPin  = 5;
 const int buttonPin  = 4;    // push-button override (active-LOW)
 
 /* ───── CONSTANTS ───── */
-const int maxDistance = 30;   // maximum distance to measure (cm)
+const int maxDistance = 25;   // maximum distance to measure (cm)
 const int threshold   = 10;   // considered badPosture (cm)
+const int minThreshold = 10;
+const int maxThreshold = 15;
 
 /* ───── GLOBAL STATE ───── */
 NewPing sonar(triggerPin, echoPin, maxDistance);
@@ -43,11 +45,13 @@ void loop() {
 
   /* 2. Determine if posture is good or bad */
   bool badPosture;
-  if (distance > threshold && distance != 0) {
-    badPosture = true;                  // posture is bad / low
-  } else {
-    badPosture = false;                 // posture is correct
-  }
+if (distance == 0 || distance < minThreshold || distance > maxThreshold) {
+  badPosture = true;
+} else {
+  badPosture = false;
+}
+
+
 
   /* 3. Handle push-button toggle (mutes alert while posture is bad) */
   handleButton(badPosture);
@@ -81,11 +85,11 @@ long checkDistance() {
 /* Turn LED & buzzer ON or OFF */
 void triggerAlert(bool alert) {
   if (alert) {
-    digitalWrite(ledPin, LOW);
-    digitalWrite(buzzerPin, LOW);  // active buzzer sounds
-  } else {
     digitalWrite(ledPin, HIGH);
-    digitalWrite(buzzerPin, HIGH);   // silence buzzer
+    digitalWrite(buzzerPin, HIGH);  // active buzzer sounds
+  } else {
+    digitalWrite(ledPin, LOW);
+    digitalWrite(buzzerPin, LOW);   // silence buzzer
   }
 }
 

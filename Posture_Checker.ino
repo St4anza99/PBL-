@@ -60,8 +60,8 @@ void loop() {
   }
 
   /* 5. Auto-re-arm alert once posture is corrected */
-  if (!bowlEmpty) {
-    alertSilenced = false;             // alerts enabled for next empty event
+  if (!badPosture) {
+    alertSilenced = false;             // alerts enabled for next incorrect posture event
   }
 
   delay(200);  // loop delay
@@ -90,7 +90,7 @@ void triggerAlert(bool alert) {
 }
 
 /* Edge-detect push-button and set alertSilenced */
-void handleButton(bool bowlEmpty) {
+void handleButton(bool badPosture) {
   bool buttonPressed;
 
   /*Read buttonPin (LOW when pressed) */
@@ -102,7 +102,7 @@ void handleButton(bool bowlEmpty) {
   }
 
   /* rising-edge detection: pressed now, was not pressed last loop */
-  if (buttonPressed && prevButtonState == HIGH && bowlEmpty) {
+  if (buttonPressed && prevButtonState == HIGH && badPosture) {
     alertSilenced = true;               // mute alert until bowl refilled
     Serial.println("Alert silenced by button.");
   }

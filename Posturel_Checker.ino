@@ -15,18 +15,18 @@ const int buttonPin  = 4;    // push-button override (active-LOW)
 
 /* ───── CONSTANTS ───── */
 const int maxDistance = 30;   // maximum distance to measure (cm)
-const int threshold   = 10;   // bowl considered empty if distance > threshold (cm)
+const int threshold   = 10;   // considered badPosture (cm)
 
 /* ───── GLOBAL STATE ───── */
 NewPing sonar(triggerPin, echoPin, maxDistance);
 
-bool alertSilenced   = false;   // true → alert muted until bowl is refilled
+bool alertSilenced   = false;   // true → alert muted until posture is corrected 
 bool prevButtonState = HIGH;    // for edge detection (HIGH = not pressed)
 
 /* ───── FUNCTION DECLARATIONS ───── */
 long checkDistance();
 void triggerAlert(bool alert);
-void handleButton(bool bowlEmpty);
+void handleButton(bool badPosture);
 
 /* ───── SETUP ───── */
 void setup() {
@@ -41,25 +41,25 @@ void loop() {
   /* 1. Measure distance */
   long distance = checkDistance();     // in cm
 
-  /* 2. Determine if the bowl is empty */
-  bool bowlEmpty;
+  /* 2. Determine if posture is good or bad */
+  bool badPosture;
   if (distance > threshold && distance != 0) {
-    bowlEmpty = true;                  // bowl is empty / low
+    badPosture = true;                  // posture is bad / low
   } else {
-    bowlEmpty = false;                 // bowl has food
+    badPosture = false;                 // posture is correct
   }
 
-  /* 3. Handle push-button toggle (mutes alert while bowl is empty) */
-  handleButton(bowlEmpty);
+  /* 3. Handle push-button toggle (mutes alert while posture is bad) */
+  handleButton(badPosture);
 
   /* 4. Alert logic */
-  if (bowlEmpty && !alertSilenced) {
+  if (badPosture && !alertSilenced) {
     triggerAlert(true);                // buzzer + LED ON
   } else {
     triggerAlert(false);               // buzzer + LED OFF
   }
 
-  /* 5. Auto-re-arm alert once bowl is refilled */
+  /* 5. Auto-re-arm alert once posture is corrected */
   if (!bowlEmpty) {
     alertSilenced = false;             // alerts enabled for next empty event
   }
@@ -81,11 +81,11 @@ long checkDistance() {
 /* Turn LED & buzzer ON or OFF */
 void triggerAlert(bool alert) {
   if (alert) {
-    digitalWrite(ledPin, HIGH);
-    digitalWrite(buzzerPin, HIGH);  // active buzzer sounds
-  } else {
     digitalWrite(ledPin, LOW);
-    digitalWrite(buzzerPin, LOW);   // silence buzzer
+    digitalWrite(buzzerPin, LOW);  // active buzzer sounds
+  } else {
+    digitalWrite(ledPin, HIGH);
+    digitalWrite(buzzerPin, HIGH);   // silence buzzer
   }
 }
 

@@ -35,6 +35,8 @@ INSERT DIAGRAM HERE
 
 ## 🔌 Circuit
 
-EXAMPLE CIRCUIT DIAGRAM
+![image](https://github.com/user-attachments/assets/1f2561f3-55dd-4f85-8652-cb6182b8ad0c)
+
+
 
 

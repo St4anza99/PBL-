@@ -5,7 +5,8 @@ This document describes a Project-Based Learning (PBL) activity for the Introduc
 
 > A quick, Arduino‐based IoT project that sounds a buzzer when you slouch in your chair or lean too far back. A one-press mute that automatically re-arms the system after you manually disable the notification for whatever reason you may need to. When in a good sitting position, the LED stays on.
 
-INSERT DIAGRAM HERE
+![image](https://github.com/user-attachments/assets/664d19bd-f245-47af-b758-1abd95a56512)
+
 
 ---
 

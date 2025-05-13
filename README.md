@@ -36,7 +36,7 @@ This document describes a Project-Based Learning (PBL) activity for the Introduc
 
 ## 🔌 Circuit
 
-![image](https://github.com/user-attachments/assets/1f2561f3-55dd-4f85-8652-cb6182b8ad0c)
+![image](https://github.com/user-attachments/assets/79252ad5-d134-4d63-843d-6f1e28112c89)
 
 
 
